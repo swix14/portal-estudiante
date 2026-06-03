@@ -1,0 +1,398 @@
+
+/* Esto simplemente es para que nuestro nav (responsive-menu) aparezca a la izquierda (left) */
+
+#responsive-menu{
+
+float: left;
+
+background: #363839; /* Color de fondo del menú */
+
+width: 100%; /* Ancho */
+
+display: none;
+
+margin-top: 2px;
+
+}
+
+
+/* Quitamos estilos predeterminados de la etiqueta UL (margen, relleno, estilo de lista y tamaño de letra)  */
+
+#responsive-menu ul{
+
+margin: 0;
+
+padding: 0;
+
+list-style: none;
+
+font-size: 14px; 
+
+
+
+}
+
+ 
+
+#responsive-menu li{
+
+display: inline;
+
+float: left; /* Flotado a la izquierda */
+
+text-transform: uppercase; /* Transformamos el texto a mayúsculas */
+
+text-align: center; /* Texto centrado */
+
+
+
+}
+
+ 
+
+/* Añadimos estilo a los enlaces */
+
+#responsive-menu li a{
+
+display: block; 
+
+color: #fff; /* Color de letra */
+
+text-decoration: none; /* Sin subrayado */
+
+line-height: 60px;
+
+padding: 0 26px; /* Relleno */
+
+
+
+}
+
+ 
+
+#responsive-menu li a:hover{
+
+background: #151a1e; /* Color de fondo de cada elemento al pasar el cursor */
+
+color: #ffc700; /* Color de letra al pasar el cursor */
+
+
+
+}
+
+ 
+
+#nav-responsive{
+
+display: none; /* Ocultamos el enlace */
+
+background: url(./images/icon-menu.png) no-repeat 15px 17px; /* Imagen que desplegará el menú al hacer click */
+
+text-decoration: none; /* Sin subrayado */
+
+float: right; /* Flotado a la derecha */
+
+width: 60px; /* Ancho */
+
+height: 160px; /* Alto */
+
+background-size: 41px 40px;
+
+position: absolute;
+
+left: 10; /* Derecha */
+
+top: 0; /* Arriba */
+
+opacity: .6; /* Opacidad */ 
+
+
+
+}
+
+ 
+
+ 
+
+/* Agregaremos la clase .nav-active al enlace #nav-responsive, cuando el menu esté desplegado */
+
+#nav-responsive.nav-active{
+
+opacity: 1; /* Opacidad */
+
+}
+
+ 
+
+/* A partir de aquí, vista móvil */
+@media only screen and (min-width: 768px) and (max-width: 979px) {
+
+#nav-responsive{
+
+display: block;
+
+}
+
+
+#responsive-menu{
+
+width: 100%; /* Ancho (vista móvil) */
+
+float: none; /* Dejamos de flotar el menú ya que el ancho es 100% */
+
+padding-top: 60px; /*Relleno por arriba a partir del cual se mostrarán los elementos <li> */
+
+display: block;
+
+}
+
+ 
+
+#responsive-menu ul{
+
+box-shadow: 0 1px 2px rgba(0,0,0,.5); /* Sombra al menú */
+
+max-height: 0;
+
+overflow: hidden;
+
+}
+
+/* Añadimos estilo a cada elemento <li> (Vista móvil) */
+
+#responsive-menu li{
+
+background: #33363b; /* Color de fondo */
+
+border-bottom: 1px solid #282b30; /* Borde inferior tamaño-tipo-color */
+
+float: none;
+
+display: block;
+
+}
+
+#responsive-menu li:last-child{
+
+border-bottom: 0; /* Quitamos el borde al útlimo elemento <li> del menú (Vista móvil) */
+
+}
+
+ 
+
+/* Estilos para los enlaces (Vista móvil) */
+
+#responsive-menu li a{
+
+padding: 15px 0;
+
+height: auto;
+
+line-height: normal;
+
+}
+
+ 
+
+#responsive-menu li a:hover{
+
+background:#2a2d33; /* Color de fondo para cada enlace al pasar el cursor */
+
+}
+
+ 
+
+#responsive-menu ul.open-responsive-menu{
+
+max-height: 400px; /* Máximo alto para el menú desplegado */
+
+transition: max-height .5s; /* Efecto en el despliegue del menú */
+
+}
+
+ 
+}
+
+@media only screen and (max-width: 767px) {
+
+#nav-responsive{
+
+display: block;
+
+}
+
+
+#responsive-menu{
+
+width: 100%; /* Ancho (vista móvil) */
+
+float: none; /* Dejamos de flotar el menú ya que el ancho es 100% */
+
+padding-top: 60px; /*Relleno por arriba a partir del cual se mostrarán los elementos <li> */
+
+display: block;
+
+}
+
+ 
+
+#responsive-menu ul{
+
+box-shadow: 0 1px 2px rgba(0,0,0,.5); /* Sombra al menú */
+
+max-height: 0;
+
+overflow: hidden;
+
+}
+
+/* Añadimos estilo a cada elemento <li> (Vista móvil) */
+
+#responsive-menu li{
+
+background: #33363b; /* Color de fondo */
+
+border-bottom: 1px solid #282b30; /* Borde inferior tamaño-tipo-color */
+
+float: none;
+
+display: block;
+
+}
+
+#responsive-menu li:last-child{
+
+border-bottom: 0; /* Quitamos el borde al útlimo elemento <li> del menú (Vista móvil) */
+
+}
+
+ 
+
+/* Estilos para los enlaces (Vista móvil) */
+
+#responsive-menu li a{
+
+padding: 15px 0;
+
+height: auto;
+
+line-height: normal;
+
+}
+
+ 
+
+#responsive-menu li a:hover{
+
+background:#2a2d33; /* Color de fondo para cada enlace al pasar el cursor */
+
+}
+
+ 
+
+#responsive-menu ul.open-responsive-menu{
+
+max-height: 400px; /* Máximo alto para el menú desplegado */
+
+transition: max-height .5s; /* Efecto en el despliegue del menú */
+
+}
+ 
+
+ }
+
+@media only screen and (max-width: 479px) {
+
+ 
+
+/* Mostramos el enlace que desplegará el menú (#nav-responsive) */
+
+#nav-responsive{
+
+display: block;
+
+}
+
+ body{
+    background: none;
+    background-color: #363839;
+}
+
+#responsive-menu{
+
+width: 100%; /* Ancho (vista móvil) */
+
+float: none; /* Dejamos de flotar el menú ya que el ancho es 100% */
+
+padding-top: 60px; /*Relleno por arriba a partir del cual se mostrarán los elementos <li> */
+
+display: block;
+
+}
+
+ 
+
+#responsive-menu ul{
+
+box-shadow: 0 1px 2px rgba(0,0,0,.5); /* Sombra al menú */
+
+max-height: 0;
+
+overflow: hidden;
+
+}
+
+/* Añadimos estilo a cada elemento <li> (Vista móvil) */
+
+#responsive-menu li{
+
+background: #33363b; /* Color de fondo */
+
+border-bottom: 1px solid #282b30; /* Borde inferior tamaño-tipo-color */
+
+float: none;
+
+display: block;
+
+}
+
+#responsive-menu li:last-child{
+
+border-bottom: 0; /* Quitamos el borde al útlimo elemento <li> del menú (Vista móvil) */
+
+}
+
+ 
+
+/* Estilos para los enlaces (Vista móvil) */
+
+#responsive-menu li a{
+
+padding: 15px 0;
+
+height: auto;
+
+line-height: normal;
+
+}
+
+ 
+
+#responsive-menu li a:hover{
+
+background:#2a2d33; /* Color de fondo para cada enlace al pasar el cursor */
+
+}
+
+ 
+
+#responsive-menu ul.open-responsive-menu{
+
+max-height: 400px; /* Máximo alto para el menú desplegado */
+
+transition: max-height .5s; /* Efecto en el despliegue del menú */
+
+}
+
+
+}

@@ -1,0 +1,7 @@
+# Ignorar subidas temporales de justificativos
+uploads/*
+!uploads/.gitkeep
+
+# Archivos del sistema y logs
+.DS_Store
+*.log
