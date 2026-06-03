@@ -1,10 +1,6 @@
 CREATE DATABASE IF NOT EXISTS portal_estudiante DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
 USE portal_estudiante;
 
-DROP TABLE IF EXISTS justificativo_detalles;
-DROP TABLE IF EXISTS justificativos;
-DROP TABLE IF EXISTS estudiantes;
-
 -- Tabla de estudiantes
 CREATE TABLE IF NOT EXISTS estudiantes (
     id INT AUTO_INCREMENT PRIMARY KEY,
