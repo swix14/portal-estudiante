@@ -18,16 +18,16 @@ if (empty($pass_actual) || empty($pass_nueva)) {
 }
 
 try {
-    // Obtener contraseña actual del estudiante
+    // busca clave
     $stmt = $pdo->prepare("SELECT password FROM estudiantes WHERE id = :id LIMIT 1");
     $stmt->execute([':id' => $student_id]);
     $student = $stmt->fetch();
 
     if ($student && password_verify($pass_actual, $student['password'])) {
-        // Encriptar la nueva contraseña
+        // hashea clave
         $new_hash = password_hash($pass_nueva, PASSWORD_DEFAULT);
 
-        // Actualizar la contraseña en la base de datos
+        // guarda clave
         $update = $pdo->prepare("UPDATE estudiantes SET password = :password WHERE id = :id");
         $update->execute([
             ':password' => $new_hash,

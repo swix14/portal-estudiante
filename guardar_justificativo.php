@@ -17,7 +17,7 @@ if (empty($selected_days_json)) {
     exit();
 }
 
-$selected_days = json_encode(array()); // Inicialización por si acaso
+$selected_days = json_encode(array()); // init variable
 try {
     $selected_days = json_decode($selected_days_json, true);
     if (!is_array($selected_days) || empty($selected_days)) {
@@ -29,27 +29,27 @@ try {
     exit();
 }
 
-// Gestionar subida de archivo
-$documento_nombre = 'documento.pdf'; // Valor por defecto
+// sube archivo
+$documento_nombre = 'documento.pdf'; // default name
 if (isset($_FILES['documento']) && $_FILES['documento']['error'] === UPLOAD_ERR_OK) {
     $fileTmpPath = $_FILES['documento']['tmp_name'];
     $fileName = $_FILES['documento']['name'];
     $fileSize = $_FILES['documento']['size'];
     $fileType = $_FILES['documento']['type'];
     
-    // Limpiar el nombre de archivo
+    // limpia nombre
     $fileNameCmps = explode(".", $fileName);
     $fileExtension = strtolower(end($fileNameCmps));
     
     $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'heic', 'heif', 'webp'];
     if (in_array($fileExtension, $allowedExtensions)) {
-        // Crear carpeta uploads si no existe
+        // crea carpeta
         $uploadFileDir = './uploads/';
         if (!is_dir($uploadFileDir)) {
             mkdir($uploadFileDir, 0755, true);
         }
         
-        // Generar un nombre único para evitar colisiones
+        // nombre unico
         $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
         $dest_path = $uploadFileDir . $newFileName;
         
@@ -68,7 +68,7 @@ if (isset($_FILES['documento']) && $_FILES['documento']['error'] === UPLOAD_ERR_
 try {
     $pdo->beginTransaction();
     
-    // Generar código de trámite único
+    // codigo unico
     $codigo_tramite = "";
     $es_unico = false;
     while (!$es_unico) {
@@ -82,7 +82,7 @@ try {
         }
     }
     
-    // Insertar el justificativo principal
+    // guarda justificativo
     $stmt = $pdo->prepare("
         INSERT INTO justificativos (codigo_tramite, estudiante_id, fecha_envio, documento, estado, comentarios)
         VALUES (:codigo, :estudiante_id, :fecha_envio, :documento, 'Pendiente', :comentarios)
@@ -99,17 +99,17 @@ try {
     
     $justificativo_id = $pdo->lastInsertId();
     
-    // Insertar los detalles por día y ramos
+    // guarda detalles
     $stmt_det = $pdo->prepare("
         INSERT INTO justificativo_detalles (justificativo_id, fecha, curso)
         VALUES (:just_id, :fecha, :curso)
     ");
     
     foreach ($selected_days as $fecha_str => $cursos) {
-        // Convertir fecha de d/m/Y a Y-m-d
+        // convierte fecha
         $date_parts = explode('/', $fecha_str);
         if (count($date_parts) === 3) {
-            // Asegurar ceros a la izquierda
+            // rellena ceros
             $day = str_pad($date_parts[0], 2, '0', STR_PAD_LEFT);
             $month = str_pad($date_parts[1], 2, '0', STR_PAD_LEFT);
             $year = $date_parts[2];

@@ -8,7 +8,7 @@ if (!isset($_SESSION['student_id'])) {
 
 $student_id = $_SESSION['student_id'];
 
-// Consultar trámites del estudiante
+// busca tramites
 try {
     $stmt = $pdo->prepare("
         SELECT j.*, GROUP_CONCAT(CONCAT(d.fecha, ' - ', d.curso) SEPARATOR '||') as detalles
@@ -240,7 +240,7 @@ try {
                             $badgeClass = 'badge-rejected';
                         }
                         
-                        // Parsear las fechas y asignaturas del GROUP_CONCAT
+                        // parsea detalles
                         $detalles_arr = [];
                         $fechas_arr = [];
                         if (!empty($tr['detalles'])) {
@@ -336,13 +336,13 @@ try {
 </div>
 
 <script>
-    // Inicializar mapa de días e info de fecha actual del calendario
+    // init mapa
     window.selectedDaysMap = {};
     var today = new Date();
     window.currentYear = today.getFullYear();
-    window.currentMonth = today.getMonth(); // Se inicializa dinámicamente con el mes y año actual
+    window.currentMonth = today.getMonth(); // mes actual
 
-    // Función para renderizar el calendario de manera dinámica
+    // dibuja calendario
     window.renderCalendar = function(year, month) {
         var monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         var headerSpan = document.getElementById('calendar_month_year');
@@ -352,14 +352,14 @@ try {
 
         var totalDays = new Date(year, month + 1, 0).getDate();
         var firstDayIndex = new Date(year, month, 1).getDay();
-        // Ajustar para que la semana empiece en Lunes (Lu=0, Do=6)
+        // semana inicia lunes
         var startDay = (firstDayIndex === 0) ? 6 : firstDayIndex - 1;
 
         var tbody = '';
         var day = 1;
         var row = '<tr>';
 
-        // Celdas vacías iniciales
+        // vacios inicio
         for (var i = 0; i < startDay; i++) {
             row += '<td class="empty"></td>';
         }
@@ -381,7 +381,7 @@ try {
             currentCell++;
         }
 
-        // Celdas vacías finales
+        // vacios fin
         while (currentCell < 7) {
             row += '<td class="empty"></td>';
             currentCell++;
@@ -413,7 +413,7 @@ try {
         window.renderCalendar(window.currentYear, window.currentMonth);
     };
 
-    // Renderizar calendario inicial después de cargar
+    // calendar inicial
     setTimeout(function() {
         window.renderCalendar(window.currentYear, window.currentMonth);
     }, 50);
@@ -434,11 +434,11 @@ try {
         if (activeSec) activeSec.classList.add('active');
 
         if (tabName === 'mis_tramites') {
-            // Recargar dinámicamente la sección para ver la tabla actualizada de la BD
+            // recarga vista
             $('#panelDer').html("<center><img src='images/loader3.gif' style='margin-top: 250px;'/><p style='margin-top:-8px; margin-left: 10px;'> Cargando...</p></center><br><br>").show();
             setTimeout(function() {
                 $('#panelDer').load('get_justificativos.php', function() {
-                    // Activar la pestaña correcta después de la carga
+                    // activa pestaña
                     document.querySelectorAll('.just-tab-btn').forEach(function(btn) {
                         btn.classList.remove('active');
                     });
@@ -556,7 +556,7 @@ try {
             return;
         }
         
-        // Crear objeto FormData para subir archivos
+        // envia datos
         var formData = new FormData();
         var fileInput = document.getElementById('just_file');
         if (fileInput.files[0]) {

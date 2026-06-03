@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS portal_estudiante DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
 USE portal_estudiante;
 
--- Tabla de estudiantes
+-- estudiantes
 CREATE TABLE IF NOT EXISTS estudiantes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     rut VARCHAR(12) NOT NULL UNIQUE,
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS estudiantes (
     direccion VARCHAR(150)
 ) ENGINE=InnoDB;
 
--- Tabla de justificativos
+-- justificativos
 CREATE TABLE IF NOT EXISTS justificativos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     codigo_tramite VARCHAR(20) NOT NULL UNIQUE,
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS justificativos (
     FOREIGN KEY (estudiante_id) REFERENCES estudiantes(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- Tabla para guardar los días específicos e inasistencias de cada justificativo
+-- dias justificativo
 CREATE TABLE IF NOT EXISTS justificativo_detalles (
     id INT AUTO_INCREMENT PRIMARY KEY,
     justificativo_id INT NOT NULL,
@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS justificativo_detalles (
     FOREIGN KEY (justificativo_id) REFERENCES justificativos(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- Insertar el usuario solicitado
--- Contraseña de prueba: ClavePrueba123
+-- ingresa usuario
+-- clave: ClavePrueba123
 INSERT INTO estudiantes (rut, nombre, email, password, carrera, celular, direccion)
 VALUES (
     '20.123.456-7',
@@ -47,11 +47,11 @@ VALUES (
     'Avenida Alemania 0122, Temuco'
 ) ON DUPLICATE KEY UPDATE email=email;
 
--- Obtener el ID insertado para asociar los justificativos de inasistencia mock iniciales
--- (TR-1024 y TR-1055)
+-- id estudiante
+-- tramite 1
 SET @estudiante_id = (SELECT id FROM estudiantes WHERE email = 'estudiante@alu.uct.cl' LIMIT 1);
 
--- Justificativo 1 (TR-1024)
+-- tramite 1
 INSERT INTO justificativos (codigo_tramite, estudiante_id, fecha_envio, documento, estado, comentarios)
 VALUES (
     'TR-1024',
@@ -71,7 +71,7 @@ VALUES (
     'INF-1101 PROGRAMACIÓN ORIENTADA A OBJETOS'
 ) ON DUPLICATE KEY UPDATE id=id;
 
--- Justificativo 2 (TR-1055)
+-- tramite 2
 INSERT INTO justificativos (codigo_tramite, estudiante_id, fecha_envio, documento, estado, comentarios)
 VALUES (
     'TR-1055',

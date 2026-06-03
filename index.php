@@ -2,7 +2,7 @@
 session_start();
 require_once 'conexion.php';
 
-// Si ya está logueado, redirigir al panel
+// redirect si logueado
 if (isset($_SESSION['student_id'])) {
     header("Location: index2.php");
     exit();
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $student = $stmt->fetch();
 
             if ($student && password_verify($pass, $student['password'])) {
-                // Almacenar datos en la sesión
+                // guarda sesion
                 $_SESSION['student_id'] = $student['id'];
                 $_SESSION['student_email'] = $student['email'];
                 $_SESSION['student_name'] = $student['nombre'];
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         });
     </script>
 
-    <!-- funcion para deslizar menu de celular-->
+    <!-- menu movil -->
     <script>
         $(function() {
             var enlace_movil = $('#nav-responsive'),
@@ -221,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div id="content">
             <div id="fondo">
                 <div id="derecha">
-                    <!-- BANNER INLINED TO WORK LOCAL/FILE PROTOCOL -->
+                    <!-- banners -->
                     <div id='cargaBanner'>
                         <div class="wmuSlider example1">
                             <div class="wmuSliderWrapper">
@@ -254,12 +254,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <li id="der"></li>
                         </ul>
                     </div>
-                </div> <!-- fin sidebar a -->
+                </div> <!-- fin barra -->
             </div>
 
             <div id="izquierda">
                 <div id='validar_correo' style="line-height: 6px;letter-spacing: 0.027em;font-size: 12px;">
-                    <!-- INICIO DE INICIO DE SESION-->
+                    <!-- login -->
                     <section id="containers">
                         <h2 style="color:white">Iniciar sesión</h2>
                         <form name="hongkiat" id="hongkiat-form" method="post" action="index.php" onsubmit="return handleLoginLocal(event)">
@@ -285,10 +285,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </section>
                         </form>
                     </section>
-                    <!-- FIN DE INICIO DE SESION-->
+                    <!-- fin login -->
                 </div>
             </div>
-            <!-- fin sidebar-b -->
+            <!-- fin barra b -->
             <br>
             <?php if (!empty($error_msg)): ?>
                 <p style="color: red; font-family: 'Open Sans', serif; font-size:17px; text-shadow: -1px -1px 1px #000, 1px 1px 1px #000, -1px 1px 1px #000, 1px -1px 1px #000; text-align: center; font-weight: bold; margin-top: 15px;">

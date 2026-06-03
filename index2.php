@@ -37,10 +37,10 @@ $carrera = htmlspecialchars($_SESSION['student_carrera']);
 
     <title>Universidad Católica de Temuco</title>
 
-    <link rel="stylesheet" type="text/css" href="css/nav_vertical.css" /> <!--estilos para el menu vertical-->
-    <script type="text/javascript" src="js/movSociales.js"></script> <!-- mueve iconos sociales-->
+    <link rel="stylesheet" type="text/css" href="css/nav_vertical.css" /> <!-- menu vertical css -->
+    <script type="text/javascript" src="js/movSociales.js"></script> <!-- mueve iconos -->
 
-    <!-- funcion para deslizar menu de celular-->
+    <!-- menu celular -->
     <script>
         $(function() {
             var enlace_movil = $('#nav-responsive'),
@@ -55,7 +55,7 @@ $carrera = htmlspecialchars($_SESSION['student_carrera']);
     </script>
 
     <script>
-        // Carga dinámica de páginas PHP
+        // carga ajax
         function loadDynamicContent(url) {
             $('#panelDer').html("<center><img src='images/loader3.gif' style='margin-top: 250px;'/><p style='margin-top:-8px; margin-left: 10px;'> Cargando...</p></center><br><br>").show();
             setTimeout(function() {
@@ -64,14 +64,14 @@ $carrera = htmlspecialchars($_SESSION['student_carrera']);
         }
 
         $(document).ready(function() {
-            // Guardar contenido original de NOTICIAS
+            // guarda noticias
             var noticiasOriginales = $('#panelDer').html();
 
-            // Menu Superior - Inicio
+            // menu inicio
             $("#inicio-btn").click(function(e) {
                 e.preventDefault();
                 loadDynamicContent(null);
-                // Restaurar noticias directamente
+                // resetea vista
                 $('#panelDer').html("<center><img src='images/loader3.gif' style='margin-top: 250px;'/><p style='margin-top:-8px; margin-left: 10px;'> Cargando...</p></center><br><br>").show();
                 setTimeout(function() {
                     $('#panelDer').html(noticiasOriginales);
@@ -80,7 +80,7 @@ $carrera = htmlspecialchars($_SESSION['student_carrera']);
                 $(this).parent().addClass("current");
             });
 
-            // Menu Lateral Clics (Secciones estáticas a través del cargador de PHP)
+            // clicks menu
             $("#opc2").click(function(e) { e.preventDefault(); loadDynamicContent('get_mock_section.php?section=opc2'); });
             $("#opc3").click(function(e) { e.preventDefault(); loadDynamicContent('get_mock_section.php?section=opc3'); });
             $("#opc4").click(function(e) { e.preventDefault(); loadDynamicContent('get_mock_section.php?section=opc4'); });
@@ -93,12 +93,12 @@ $carrera = htmlspecialchars($_SESSION['student_carrera']);
             $("#opc16").click(function(e) { e.preventDefault(); loadDynamicContent('get_mock_section.php?section=opc16'); });
             $("#opc20").click(function(e) { e.preventDefault(); loadDynamicContent('get_mock_section.php?section=opc20'); });
             
-            // Boton EODD Posgrado externa
+            // encuesta eodd
             $("#opc21").click(function(e) {
                 alert("Redireccionando a Encuesta de Opinión al Desempeño Docente...");
             });
 
-            // Módulo de justificativos dinámicos de Base de Datos
+            // justificativos
             $("#opc_justificativos").click(function(e) { 
                 e.preventDefault(); 
                 loadDynamicContent('get_justificativos.php'); 
@@ -108,7 +108,7 @@ $carrera = htmlspecialchars($_SESSION['student_carrera']);
 </head>
 
 <body>
-    <!--menu para celular, oculto en principio-->
+    <!-- menu celular -->
     <nav id="responsive-menu">
         <a class="nav-responsive" id="nav-responsive" href="#"></a>
         <ul>
@@ -121,7 +121,7 @@ $carrera = htmlspecialchars($_SESSION['student_carrera']);
             <li><a href="http://acreditacion.uct.cl/" TARGET="_blank">ACREDITACION</a></li>
         </ul>
     </nav>
-    <!-- fin menu celular-->
+    <!-- fin menu -->
 
     <div id="wrapper" class="clearfix">
         <div id="header" class="header3">
@@ -172,7 +172,7 @@ $carrera = htmlspecialchars($_SESSION['student_carrera']);
             </div>
         </div>
 
-        <!-- lista menu vertical -->
+        <!-- menu vertical -->
         <div class="content">
             <ul class="ca-menu">
                 <li>
@@ -302,7 +302,7 @@ $carrera = htmlspecialchars($_SESSION['student_carrera']);
                     </a>
                 </li>
             </ul>
-        </div><!-- content -->
+        </div><!-- fin content -->
 
         <div id="panelDer">
             <style>
