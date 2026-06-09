@@ -171,8 +171,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </script>
     <style>
+        /* Ocultar logo HTML en desktop para no duplicar con el fondo */
+        #logo {
+            display: none !important;
+        }
+
         /* estilo celular */
         @media only screen and (max-width: 767px) {
+            #header {
+                background: #01568e !important;
+                height: auto !important;
+                padding: 10px 0 !important;
+            }
+            #logo {
+                display: block !important;
+                float: none !important;
+                margin: 0 auto !important;
+                text-align: center !important;
+                max-width: 200px !important;
+                height: auto !important;
+            }
+            #logo a {
+                display: block !important;
+            }
+            #logo img {
+                display: block !important;
+                margin: 0 auto !important;
+                max-width: 100% !important;
+                height: auto !important;
+            }
             #wrapper {
                 width: 100% !important;
                 max-width: 100% !important;
@@ -283,7 +310,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div id="wrapper" class="clearfix">
         <div id="header" class="header3">
             <div class="container clearfix">
-                <div id="logo"></div>
+                <div id="logo">
+                    <a href="index.php" class="standard-logo"><img src="images/logo.png" alt="Universidad Católica de Temuco"></a>
+                    <a href="index.php" class="retina-logo"><img src="images/logo@2x.png" alt="Universidad Católica de Temuco"></a>
+                </div>
             </div>
             <div id="primary-menu">
                 <div class="container clearfix">
@@ -313,8 +343,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div id="content">
-            <div id="fondo">
-                <div id="derecha">
+            <div class="container clearfix">
+                <div id="fondo">
+                    <div id="derecha">
                     <!-- banners -->
                     <div id='cargaBanner'>
                         <div class="wmuSlider example1">
@@ -389,6 +420,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php echo htmlspecialchars($error_msg); ?>
                 </p>
             <?php endif; ?>
+            </div>
         </div>    
     </div>
 
