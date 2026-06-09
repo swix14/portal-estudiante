@@ -126,179 +126,185 @@ try {
 
     <!-- SECCION: COMO FUNCIONA -->
     <div id="sec_como_funciona" class="just-section">
-        <table width='100%' border='0' cellspacing='1' cellpadding='10' style='font-family: Arial, sans-serif; font-size: 13px; border: 1px solid #ccc;'>
-            <tr bgcolor='#f9f9f9'>
-                <td>
-                    <font size='4' color='#2e6492'><b>Guía del Proceso de Justificación de Inasistencias</b></font>
-                    <br><br>
-                    <p align="justify">
-                        De acuerdo con el Reglamento de Estudiantes de la Universidad Católica de Temuco, si no asistes a una evaluación o clase obligatoria por razones de fuerza mayor, debes realizar el proceso de justificación formal para tener derecho a una evaluación recuperativa.
-                    </p>
-                    <hr size="1" color="#ccc">
-                    <b>Pasos a seguir:</b>
-                    <ol style="margin-top: 5px; line-height: 1.5em;">
-                        <li>Ir a la pestaña <b>"Nueva Solicitud"</b>.</li>
-                        <li><b>Hacer clic en las fechas del calendario</b> en las que faltaste. Al hacer clic en un día, se abrirá un cuadro para que selecciones a qué ramos específicos faltaste ese día.</li>
-                        <li>Adjuntar el documento que respalde tu inasistencia (licencia médica, certificado de salud, documento legal o laboral). El documento debe estar en formato PDF o imagen.</li>
-                        <li>Hacer clic en <b>"Enviar Trámite"</b>.</li>
-                    </ol>
-                    <hr size="1" color="#ccc">
-                    <b>Consideraciones Importantes:</b>
-                    <ul>
-                        <li>El plazo máximo para subir un justificativo es de <b>5 días hábiles</b> contados desde la fecha de inicio de la inasistencia.</li>
-                        <li>Las licencias médicas y certificados de salud serán visados por el área de Salud de Bienestar Estudiantil.</li>
-                        <li>Una vez aprobado, se notificará automáticamente al docente del ramo para que coordine la fecha de la evaluación pendiente.</li>
-                    </ul>
-                </td>
-            </tr>
-        </table>
+        <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+            <table width='100%' border='0' cellspacing='1' cellpadding='10' style='font-family: Arial, sans-serif; font-size: 13px; border: 1px solid #ccc; min-width: 500px;'>
+                <tr bgcolor='#f9f9f9'>
+                    <td>
+                        <font size='4' color='#2e6492'><b>Guía del Proceso de Justificación de Inasistencias</b></font>
+                        <br><br>
+                        <p align="justify">
+                            De acuerdo con el Reglamento de Estudiantes de la Universidad Católica de Temuco, si no asistes a una evaluación o clase obligatoria por razones de fuerza mayor, debes realizar el proceso de justificación formal para tener derecho a una evaluación recuperativa.
+                        </p>
+                        <hr size="1" color="#ccc">
+                        <b>Pasos a seguir:</b>
+                        <ol style="margin-top: 5px; line-height: 1.5em;">
+                            <li>Ir a la pestaña <b>"Nueva Solicitud"</b>.</li>
+                            <li><b>Hacer clic en las fechas del calendario</b> en las que faltaste. Al hacer clic en un día, se abrirá un cuadro para que selecciones a qué ramos específicos faltaste ese día.</li>
+                            <li>Adjuntar el documento que respalde tu inasistencia (licencia médica, certificado de salud, documento legal o laboral). El documento debe estar en formato PDF o imagen.</li>
+                            <li>Hacer clic en <b>"Enviar Trámite"</b>.</li>
+                        </ol>
+                        <hr size="1" color="#ccc">
+                        <b>Consideraciones Importantes:</b>
+                        <ul>
+                            <li>El plazo máximo para subir un justificativo es de <b>5 días hábiles</b> contados desde la fecha de inicio de la inasistencia.</li>
+                            <li>Las licencias médicas y certificados de salud serán visados por el área de Salud de Bienestar Estudiantil.</li>
+                            <li>Una vez aprobado, se notificará automáticamente al docente del ramo para que coordine la fecha de la evaluación pendiente.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <!-- SECCION: NUEVA SOLICITUD -->
     <div id="sec_nueva_solicitud" class="just-section active">
         <form id="form_justificativo" onsubmit="submitJustificativoLocal(event)">
-            <table width='100%' border='0' cellspacing='1' cellpadding='6' style='font-family: Arial, sans-serif; font-size: 13px; border: 1px solid #ccc;'>
-                <tr bgcolor='#2e6492' style='color: white; font-weight: bold;'>
-                    <td colspan='2'>Formulario de Ingreso de Justificación</td>
-                </tr>
-                <tr bgcolor='#ffffff'>
-                    <td colspan="2">
-                        <!-- Selector de Mes -->
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-family: Arial, sans-serif;">
-                            <button type="button" onclick="prevMonth()" style="background: #2e6492; color: white; border: none; padding: 4px 12px; cursor: pointer; font-weight: bold; border-radius: 3px;">&larr;</button>
-                            <span id="calendar_month_year" style="font-weight: bold; font-size: 14px; color: #2e6492; text-transform: uppercase;">MAYO 2026</span>
-                            <button type="button" onclick="nextMonth()" style="background: #2e6492; color: white; border: none; padding: 4px 12px; cursor: pointer; font-weight: bold; border-radius: 3px;">&rarr;</button>
-                        </div>
-                        <!-- Calendario interactivo -->
-                        <table class="calendar-table">
-                            <thead>
-                                <tr>
-                                    <th>Lu</th><th>Ma</th><th>Mi</th><th>Ju</th><th>Vi</th><th>Sá</th><th>Do</th>
-                                </tr>
-                            </thead>
-                            <tbody id="calendar_tbody">
-                                <!-- Se renderiza dinámicamente -->
-                            </tbody>
-                        </table>
-                        
-                        <div style="margin-top: 15px;">
-                            <b style="color: #2e6492; font-size: 13px;">Días e inasistencias marcados:</b>
-                            <div id="selected_days_container" style="margin-top: 6px;">
-                                <span style="color: #666; font-style: italic;">Ningún día seleccionado. Haz clic en el calendario para marcar días.</span>
+            <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                <table width='100%' border='0' cellspacing='1' cellpadding='6' style='font-family: Arial, sans-serif; font-size: 13px; border: 1px solid #ccc; min-width: 500px;'>
+                    <tr bgcolor='#2e6492' style='color: white; font-weight: bold;'>
+                        <td colspan='2'>Formulario de Ingreso de Justificación</td>
+                    </tr>
+                    <tr bgcolor='#ffffff'>
+                        <td colspan="2">
+                            <!-- Selector de Mes -->
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-family: Arial, sans-serif;">
+                                <button type="button" onclick="prevMonth()" style="background: #2e6492; color: white; border: none; padding: 4px 12px; cursor: pointer; font-weight: bold; border-radius: 3px;">&larr;</button>
+                                <span id="calendar_month_year" style="font-weight: bold; font-size: 14px; color: #2e6492; text-transform: uppercase;">MAYO 2026</span>
+                                <button type="button" onclick="nextMonth()" style="background: #2e6492; color: white; border: none; padding: 4px 12px; cursor: pointer; font-weight: bold; border-radius: 3px;">&rarr;</button>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr bgcolor='#f5f5f5'>
-                    <td><b>Adjuntar Justificativo:</b><br><small style="color: #666;">(PDF o imagen)</small></td>
-                    <td>
-                        <input type="file" id="just_file" required accept="application/pdf, image/*" style="padding: 4px;">
-                    </td>
-                </tr>
-                <tr bgcolor='#ffffff'>
-                    <td valign="top"><b>Motivo / Observaciones:</b></td>
-                    <td>
-                        <textarea id="just_motivo" style="width: 100%; height: 60px; font-family: Arial, sans-serif; padding: 4px;" placeholder="Explique brevemente el motivo general de su inasistencia... (opcional)"></textarea>
-                    </td>
-                </tr>
-                <tr bgcolor='#f5f5f5'>
-                    <td>&nbsp;</td>
-                    <td>
-                        <input type="submit" value="Enviar Trámite" style="background-color: #2e6492; color: white; border: none; padding: 6px 16px; font-weight: bold; cursor: pointer; border-radius: 2px;">
-                    </td>
-                </tr>
-            </table>
+                            <!-- Calendario interactivo -->
+                            <table class="calendar-table">
+                                <thead>
+                                    <tr>
+                                        <th>Lu</th><th>Ma</th><th>Mi</th><th>Ju</th><th>Vi</th><th>Sá</th><th>Do</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="calendar_tbody">
+                                    <!-- Se renderiza dinámicamente -->
+                                </tbody>
+                            </table>
+                            
+                            <div style="margin-top: 15px;">
+                                <b style="color: #2e6492; font-size: 13px;">Días e inasistencias marcados:</b>
+                                <div id="selected_days_container" style="margin-top: 6px;">
+                                    <span style="color: #666; font-style: italic;">Ningún día seleccionado. Haz clic en el calendario para marcar días.</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr bgcolor='#f5f5f5'>
+                        <td><b>Adjuntar Justificativo:</b><br><small style="color: #666;">(PDF o imagen)</small></td>
+                        <td>
+                            <input type="file" id="just_file" required accept="application/pdf, image/*" style="padding: 4px;">
+                        </td>
+                    </tr>
+                    <tr bgcolor='#ffffff'>
+                        <td valign="top"><b>Motivo / Observaciones:</b></td>
+                        <td>
+                            <textarea id="just_motivo" style="width: 100%; height: 60px; font-family: Arial, sans-serif; padding: 4px;" placeholder="Explique brevemente el motivo general de su inasistencia... (opcional)"></textarea>
+                        </td>
+                    </tr>
+                    <tr bgcolor='#f5f5f5'>
+                        <td>&nbsp;</td>
+                        <td>
+                            <input type="submit" value="Enviar Trámite" style="background-color: #2e6492; color: white; border: none; padding: 6px 16px; font-weight: bold; cursor: pointer; border-radius: 2px;">
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </form>
     </div>
 
     <!-- SECCION: MIS TRAMITES -->
     <div id="sec_mis_tramites" class="just-section">
-        <table width='100%' border='0' cellspacing='1' cellpadding='6' id="just_list_table" style='font-family: Arial, sans-serif; font-size: 13px; border: 1px solid #ccc;'>
-            <thead>
-                <tr bgcolor='#2e6492' style='color: white; font-weight: bold; text-align: center;'>
-                    <td>ID</td>
-                    <td>Fecha Envío</td>
-                    <td>Asignatura / Días</td>
-                    <td>Documento</td>
-                    <td>Estado</td>
-                </tr>
-            </thead>
-            <tbody id="just_list_body">
-                <?php if (count($justificativos) === 0): ?>
-                    <tr bgcolor='#ffffff'>
-                        <td colspan='5' align='center'>No registra trámites de justificativos.</td>
+        <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+            <table width='100%' border='0' cellspacing='1' cellpadding='6' id="just_list_table" style='font-family: Arial, sans-serif; font-size: 13px; border: 1px solid #ccc; min-width: 600px;'>
+                <thead>
+                    <tr bgcolor='#2e6492' style='color: white; font-weight: bold; text-align: center;'>
+                        <td>ID</td>
+                        <td>Fecha Envío</td>
+                        <td>Asignatura / Días</td>
+                        <td>Documento</td>
+                        <td>Estado</td>
                     </tr>
-                <?php else: ?>
-                    <?php 
-                    $i = 0;
-                    foreach ($justificativos as $tr): 
-                        $bg = ($i % 2 === 0) ? '#f5f5f5' : '#ffffff';
-                        $badgeClass = 'badge-pending';
-                        if ($tr['estado'] === 'Aprobado') {
-                            $badgeClass = 'badge-approved';
-                        } elseif ($tr['estado'] === 'Rechazado') {
-                            $badgeClass = 'badge-rejected';
-                        }
-                        
-                        // parsea detalles
-                        $detalles_arr = [];
-                        $fechas_arr = [];
-                        if (!empty($tr['detalles'])) {
-                            $parts = explode('||', $tr['detalles']);
-                            foreach ($parts as $p) {
-                                $p_parts = explode(' - ', $p, 2);
-                                if (count($p_parts) === 2) {
-                                    $fechas_arr[] = date('d/m/Y', strtotime($p_parts[0]));
-                                    $detalles_arr[] = $p_parts[1];
+                </thead>
+                <tbody id="just_list_body">
+                    <?php if (count($justificativos) === 0): ?>
+                        <tr bgcolor='#ffffff'>
+                            <td colspan='5' align='center'>No registra trámites de justificativos.</td>
+                        </tr>
+                    <?php else: ?>
+                        <?php 
+                        $i = 0;
+                        foreach ($justificativos as $tr): 
+                            $bg = ($i % 2 === 0) ? '#f5f5f5' : '#ffffff';
+                            $badgeClass = 'badge-pending';
+                            if ($tr['estado'] === 'Aprobado') {
+                                $badgeClass = 'badge-approved';
+                            } elseif ($tr['estado'] === 'Rechazado') {
+                                $badgeClass = 'badge-rejected';
+                            }
+                            
+                            // parsea detalles
+                            $detalles_arr = [];
+                            $fechas_arr = [];
+                            if (!empty($tr['detalles'])) {
+                                $parts = explode('||', $tr['detalles']);
+                                foreach ($parts as $p) {
+                                    $p_parts = explode(' - ', $p, 2);
+                                    if (count($p_parts) === 2) {
+                                        $fechas_arr[] = date('d/m/Y', strtotime($p_parts[0]));
+                                        $detalles_arr[] = $p_parts[1];
+                                    }
                                 }
                             }
-                        }
-                        $distinct_courses = array_unique($detalles_arr);
-                        $distinct_dates = array_unique($fechas_arr);
-                        
-                        $i++;
-                    ?>
-                        <tr bgcolor='<?php echo $bg; ?>' style='font-family: Arial, sans-serif;'>
-                            <td align='center'><b><?php echo htmlspecialchars($tr['codigo_tramite']); ?></b></td>
-                            <td align='center'><?php echo date('d/m/Y', strtotime($tr['fecha_envio'])); ?></td>
-                            <td>
-                                <b>Asignatura(s) afectada(s):</b><br>
-                                <span style="font-size: 11px; line-height: 1.3em; display: block; margin: 2px 0;">
-                                    <?php 
-                                    if (count($distinct_courses) > 0) {
-                                        foreach ($distinct_courses as $c) {
-                                            echo "• " . htmlspecialchars($c) . "<br>";
+                            $distinct_courses = array_unique($detalles_arr);
+                            $distinct_dates = array_unique($fechas_arr);
+                            
+                            $i++;
+                        ?>
+                            <tr bgcolor='<?php echo $bg; ?>' style='font-family: Arial, sans-serif;'>
+                                <td align='center'><b><?php echo htmlspecialchars($tr['codigo_tramite']); ?></b></td>
+                                <td align='center'><?php echo date('d/m/Y', strtotime($tr['fecha_envio'])); ?></td>
+                                <td>
+                                    <b>Asignatura(s) afectada(s):</b><br>
+                                    <span style="font-size: 11px; line-height: 1.3em; display: block; margin: 2px 0;">
+                                        <?php 
+                                        if (count($distinct_courses) > 0) {
+                                            foreach ($distinct_courses as $c) {
+                                                echo "• " . htmlspecialchars($c) . "<br>";
+                                            }
+                                        } else {
+                                            echo "Asignatura no especificada";
                                         }
-                                    } else {
-                                        echo "Asignatura no especificada";
-                                    }
-                                    ?>
-                                </span>
-                                <small>Días inasistencia: <?php echo implode(', ', $distinct_dates); ?></small><br>
-                                <small style="color: #666; display: block; margin-top: 2px;"><b>Obs:</b> <?php echo htmlspecialchars($tr['comentarios']); ?></small>
-                            </td>
-                            <td align='center'>
-                                <?php if (!empty($tr['documento'])): ?>
-                                    <a href="#" onclick="alert('Visualizando archivo: <?php echo htmlspecialchars($tr['documento']); ?>'); return false;">
-                                        <img src="./images/icons/documentos3.png" width="14" height="14" style="vertical-align: middle;"> <?php echo htmlspecialchars($tr['documento']); ?>
-                                    </a>
-                                <?php else: ?>
-                                    <span style="color:#888;">Sin archivo</span>
-                                <?php endif; ?>
-                            </td>
-                            <td align='center'>
-                                <span class="badge <?php echo $badgeClass; ?>"><?php echo htmlspecialchars($tr['estado']); ?></span>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </tbody>
-        </table>
+                                        ?>
+                                    </span>
+                                    <small>Días inasistencia: <?php echo implode(', ', $distinct_dates); ?></small><br>
+                                    <small style="color: #666; display: block; margin-top: 2px;"><b>Obs:</b> <?php echo htmlspecialchars($tr['comentarios']); ?></small>
+                                </td>
+                                <td align='center'>
+                                    <?php if (!empty($tr['documento'])): ?>
+                                        <a href="#" onclick="alert('Visualizando archivo: <?php echo htmlspecialchars($tr['documento']); ?>'); return false;">
+                                            <img src="./images/icons/documentos3.png" width="14" height="14" style="vertical-align: middle;"> <?php echo htmlspecialchars($tr['documento']); ?>
+                                        </a>
+                                    <?php else: ?>
+                                        <span style="color:#888;">Sin archivo</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td align='center'>
+                                    <span class="badge <?php echo $badgeClass; ?>"><?php echo htmlspecialchars($tr['estado']); ?></span>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- MODAL DE SELECCIÓN DE RAMOS POR DÍA -->
     <div id="just_modal_ramos" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; align-items: center; justify-content: center;">
-        <div style="background: white; border: 3px solid #2e6492; border-radius: 4px; width: 420px; padding: 15px; font-family: Arial, sans-serif; box-shadow: 0px 4px 15px rgba(0,0,0,0.3); text-align: left;">
+        <div style="background: white; border: 3px solid #2e6492; border-radius: 4px; width: 95%; max-width: 420px; box-sizing: border-box; padding: 15px; font-family: Arial, sans-serif; box-shadow: 0px 4px 15px rgba(0,0,0,0.3); text-align: left;">
             <h3 style="margin-top: 0; color: #2e6492; border-bottom: 2px solid #2e6492; padding-bottom: 5px; font-size: 16px;">Selección de Inasistencias</h3>
             <p style="font-size: 12px; color: #444; margin-bottom: 12px;">
                 Seleccione las asignaturas a las que faltó el día <b id="modal_date_span" style="color: #2e6492;"></b>:

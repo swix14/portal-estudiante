@@ -170,6 +170,100 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             return true;
         }
     </script>
+    <style>
+        /* estilo celular */
+        @media only screen and (max-width: 767px) {
+            #wrapper {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                border: none !important;
+                box-sizing: border-box !important;
+            }
+            .container {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+            #content {
+                width: 100% !important;
+                box-sizing: border-box !important;
+                padding: 10px !important;
+            }
+            #fondo {
+                background: none !important;
+                height: auto !important;
+            }
+            #derecha {
+                width: 100% !important;
+                float: none !important;
+                margin: 0 0 20px 0 !important;
+            }
+            #izquierda {
+                width: 100% !important;
+                float: none !important;
+                margin: 0 !important;
+            }
+            #validar_correo {
+                width: 100% !important;
+                margin: 0 !important;
+            }
+            #containers {
+                width: 100% !important;
+                position: static !important;
+                margin: 0 auto !important;
+                box-sizing: border-box !important;
+                height: auto !important;
+                padding: 15px !important;
+            }
+            #hongkiat-form .txtinput {
+                width: 100% !important;
+                box-sizing: border-box !important;
+                margin-bottom: 12px !important;
+                font-size: 1.1em !important;
+                height: auto !important;
+                padding: 8px 15px 8px 45px !important;
+            }
+            #aligned {
+                width: 100% !important;
+                float: none !important;
+                margin: 0 !important;
+            }
+            #buttons {
+                width: 100% !important;
+                margin: 10px 0 0 0 !important;
+            }
+            #submitbtn {
+                width: 100% !important;
+                height: 40px !important;
+                font-size: 1.2em !important;
+            }
+            #adirectos {
+                width: 100% !important;
+                margin-left: 0 !important;
+                box-sizing: border-box !important;
+                padding: 0 10px !important;
+            }
+            #adirectos img {
+                max-width: 22% !important;
+                height: auto !important;
+                margin: 5px !important;
+            }
+            #pensamiento {
+                width: 100% !important;
+                margin-left: 0 !important;
+                box-sizing: border-box !important;
+                padding: 10px !important;
+            }
+            #footer .col_one_fourth {
+                width: 100% !important;
+                margin-right: 0 !important;
+                margin-bottom: 20px !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
