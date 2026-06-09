@@ -171,34 +171,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </script>
     <style>
-        /* Ocultar logo HTML en desktop para no duplicar con el fondo */
-        #logo {
-            display: none !important;
-        }
-
         /* estilo celular */
         @media only screen and (max-width: 767px) {
             #header {
-                background: #01568e !important;
-                height: auto !important;
-                padding: 10px 0 !important;
-            }
-            #logo {
-                display: block !important;
-                float: none !important;
-                margin: 0 auto !important;
-                text-align: center !important;
-                max-width: 200px !important;
-                height: auto !important;
-            }
-            #logo a {
-                display: block !important;
-            }
-            #logo img {
-                display: block !important;
-                margin: 0 auto !important;
-                max-width: 100% !important;
-                height: auto !important;
+                background: #01568e url(images/bg-header2.png) no-repeat center center !important;
+                background-size: contain !important;
+                height: 0 !important;
+                padding-bottom: 12.745% !important;
+                width: 100% !important;
             }
             #wrapper {
                 width: 100% !important;
@@ -310,10 +290,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div id="wrapper" class="clearfix">
         <div id="header" class="header3">
             <div class="container clearfix">
-                <div id="logo">
-                    <a href="index.php" class="standard-logo"><img src="images/logo.png" alt="Universidad Católica de Temuco"></a>
-                    <a href="index.php" class="retina-logo"><img src="images/logo@2x.png" alt="Universidad Católica de Temuco"></a>
-                </div>
+                <div id="logo"></div>
             </div>
             <div id="primary-menu">
                 <div class="container clearfix">
