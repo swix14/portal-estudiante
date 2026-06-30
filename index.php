@@ -383,6 +383,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <br style="clear:both;">
                                     <a href="https://estudiantes.uct.cl/cambio_contrasena_campusid.php" target="_blank" style="display:  inline-block; font-size:15px; color:white; " onclick="window.open(this.href,this.target,'width=1100,height=650,toolbar=no,location=no,status=no,menubar=no');return false;">Cambiar contraseña</a>
                                     <br style="clear:both;">
+                                     <br style="clear:both;">
+                                     <div style="line-height: 1.8em; margin-top: 15px; margin-bottom: 5px;">
+                                         <a href="jefe_carrera.php" style="display: inline-block; font-size:13px; color:#e9ef18; text-decoration: underline; font-weight: bold;">Ingreso Jefe de Carrera</a>
+                                         <span style="color: white; margin: 0 8px;">|</span>
+                                         <a href="profesor.php" style="display: inline-block; font-size:13px; color:#e9ef18; text-decoration: underline; font-weight: bold;">Ingreso Profesores</a>
+                                     </div>
                                 </center>
                             </section>
                         </form>

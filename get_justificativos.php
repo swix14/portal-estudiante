@@ -11,7 +11,7 @@ $student_id = $_SESSION['student_id'];
 // busca tramites
 try {
     $stmt = $pdo->prepare("
-        SELECT j.*, GROUP_CONCAT(CONCAT(d.fecha, ' - ', d.curso) SEPARATOR '||') as detalles
+        SELECT j.*, GROUP_CONCAT(CONCAT(d.id, '::', d.fecha, '::', d.curso, '::', IFNULL(d.nueva_fecha_evaluacion, ''), '::', d.estado_docente, '::', IFNULL(d.comentario_docente, '')) SEPARATOR '||') as detalles
         FROM justificativos j
         LEFT JOIN justificativo_detalles d ON j.id = d.justificativo_id
         WHERE j.estudiante_id = :estudiante_id
@@ -246,19 +246,36 @@ try {
                             }
                             
                             // parsea detalles
-                            $detalles_arr = [];
+                            $detalles_completos = [];
                             $fechas_arr = [];
+                            $cursos_arr = [];
                             if (!empty($tr['detalles'])) {
                                 $parts = explode('||', $tr['detalles']);
                                 foreach ($parts as $p) {
-                                    $p_parts = explode(' - ', $p, 2);
-                                    if (count($p_parts) === 2) {
-                                        $fechas_arr[] = date('d/m/Y', strtotime($p_parts[0]));
-                                        $detalles_arr[] = $p_parts[1];
+                                    $p_parts = explode('::', $p);
+                                    if (count($p_parts) >= 6) {
+                                        $det_id = $p_parts[0];
+                                        $det_fecha = $p_parts[1];
+                                        $det_curso = $p_parts[2];
+                                        $det_nueva_fecha = $p_parts[3];
+                                        $det_estado = $p_parts[4];
+                                        $det_comentario = $p_parts[5];
+                                        
+                                        $fechas_arr[] = date('d/m/Y', strtotime($det_fecha));
+                                        $cursos_arr[] = $det_curso;
+                                        
+                                        $detalles_completos[] = [
+                                            'id' => $det_id,
+                                            'fecha' => date('d/m/Y', strtotime($det_fecha)),
+                                            'curso' => $det_curso,
+                                            'nueva_fecha' => !empty($det_nueva_fecha) ? date('d/m/Y', strtotime($det_nueva_fecha)) : '',
+                                            'estado' => $det_estado,
+                                            'comentario' => $det_comentario
+                                        ];
                                     }
                                 }
                             }
-                            $distinct_courses = array_unique($detalles_arr);
+                            $distinct_courses = array_unique($cursos_arr);
                             $distinct_dates = array_unique($fechas_arr);
                             
                             $i++;
@@ -281,10 +298,37 @@ try {
                                     </span>
                                     <small>Días inasistencia: <?php echo implode(', ', $distinct_dates); ?></small><br>
                                     <small style="color: #666; display: block; margin-top: 2px;"><b>Obs:</b> <?php echo htmlspecialchars($tr['comentarios']); ?></small>
+                                    
+                                    <?php if ($tr['estado'] === 'Aprobado' && count($detalles_completos) > 0): ?>
+                                        <table width="100%" border="0" cellspacing="1" cellpadding="4" style="font-size: 11px; border: 1px solid #ccc; margin-top: 8px; background-color: #fafafa; font-family: Arial, sans-serif;">
+                                            <tr bgcolor="#2e6492" style="color: white; font-weight: bold;">
+                                                <td width="35%">Curso Afectado</td>
+                                                <td width="20%">Fecha Inasistencia</td>
+                                                <td width="45%">Reprogramación Docente</td>
+                                            </tr>
+                                            <?php foreach ($detalles_completos as $det): 
+                                                $lbl_class = 'color: #f0ad4e; font-weight: bold;';
+                                                $lbl_text = 'Pendiente por el Docente';
+                                                if ($det['estado'] === 'Reprogramado') {
+                                                    $lbl_class = 'color: #5cb85c; font-weight: bold;';
+                                                    $lbl_text = 'Nueva Fecha: ' . htmlspecialchars($det['nueva_fecha']);
+                                                    if (!empty($det['comentario'])) {
+                                                        $lbl_text .= '<br><span style="color:#555; font-size:10px; font-weight:normal; font-style:italic;">Obs: ' . htmlspecialchars($det['comentario']) . '</span>';
+                                                    }
+                                                }
+                                            ?>
+                                                <tr bgcolor="#ffffff">
+                                                    <td><?php echo htmlspecialchars($det['curso']); ?></td>
+                                                    <td align="center"><?php echo htmlspecialchars($det['fecha']); ?></td>
+                                                    <td><span style="<?php echo $lbl_class; ?>"><?php echo $lbl_text; ?></span></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </table>
+                                    <?php endif; ?>
                                 </td>
                                 <td align='center'>
                                     <?php if (!empty($tr['documento'])): ?>
-                                        <a href="#" onclick="alert('Visualizando archivo: <?php echo htmlspecialchars($tr['documento']); ?>'); return false;">
+                                        <a href="uploads/<?php echo htmlspecialchars($tr['documento']); ?>" target="_blank">
                                             <img src="./images/icons/documentos3.png" width="14" height="14" style="vertical-align: middle;"> <?php echo htmlspecialchars($tr['documento']); ?>
                                         </a>
                                     <?php else: ?>

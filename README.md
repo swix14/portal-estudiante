@@ -1,13 +1,35 @@
-# Portal del Estudiante - Módulo de Justificativos de Inasistencia
+# Portal del Estudiante - Módulo de Justificativos de Inasistencia (UCT)
 
-Este proyecto es una migración dinámica del Portal Estudiante (originalmente estático) a un entorno basado en **PHP 8** y **MySQL/MariaDB**, listo para ser ejecutado bajo XAMPP.
+Este proyecto es una migración dinámica del Portal Estudiante UCT a un entorno interactivo basado en **PHP 8** y **MySQL/MariaDB**, listo para ser ejecutado bajo XAMPP.
+
+---
+
+## Flujo de Trabajo Completo
+
+El sistema implementa un flujo de justificaciones y reprogramaciones académicas que involucra a tres roles:
+
+```
+[ Estudiante ] ----(Sube Certificado y Ramos)----> [ Jefe de Carrera ]
+                                                           |
+                                                       (Aprueba)
+                                                           |
+                                                           v
+[ Estudiante ] <---(Ve fecha de prueba)--- [ Profesor de Asignatura ]
+```
+
+1.  **Estudiante**: Solicita una justificación subiendo un certificado médico o de respaldo e indicando las fechas y ramos específicos que se ausentó. El trámite queda en estado `Pendiente`.
+2.  **Jefe de Carrera**: Revisa la solicitud en su bandeja de entrada. Valida el documento adjunto y, si está conforme, cambia el estado a `Aprobado`.
+3.  **Profesor**: Tras la aprobación del jefe, el sistema deriva los ramos afectados a la bandeja de cada profesor. El profesor ingresa, selecciona su materia dictada, y agenda la nueva fecha de evaluación recuperativa con indicaciones.
+4.  **Estudiante**: Puede entrar a su panel histórico ("Mis Trámites") y revisar de forma desglosada qué profesor ya reprogramó su evaluación, la fecha asignada y el aula o condiciones definidas.
+
+---
 
 ## Características Clave
-* **Autenticación Segura**: Sistema de login conectado a base de datos con contraseñas encriptadas usando `bcrypt`. Mapea dinámicamente la cabecera del portal con el nombre de usuario y carrera.
-* **Calendario Dinámico e Interactivo**: Carga del mes/año actual en tiempo real con controles para navegar entre meses. Permite seleccionar fechas y registrar inasistencias a asignaturas específicas.
-* **Gestión de Archivos**: Filtro interactivo en el explorador para aceptar únicamente archivos PDF e imágenes tomadas desde el celular (`.jpg`, `.jpeg`, `.png`, `.heic`, `.heif`, `.webp`).
-* **Simplificación de Estados**: Estados normalizados para el flujo del trámite: `Pendiente`, `Aprobado` y `Rechazado`.
-* **Historial Dinámico ("Mis Trámites")**: Consulta en la base de datos que lista las solicitudes del alumno autenticado y muestra sus ramos/días afectados de forma organizada.
+*   **Autenticación Base de Datos (BCRYPT)**: Todos los accesos se validan de forma segura contra la base de datos utilizando hashes `bcrypt`.
+*   **Diseño Institucional UCT**: Tanto la pantalla de login como los dashboards de alumno, director y profesor emulan fielmente el diseño y estilo del portal institucional de la Universidad Católica de Temuco.
+*   **Bandejas Especializadas**: Filtros interactivos de búsqueda y navegación para jefes y profesores.
+*   **Carga de Ramos Dinámicos**: Los profesores solo visualizan las asignaturas que tienen asociadas contractualmente en la base de datos.
+*   **Previsualización de Respaldos**: El Jefe y los profesores pueden previsualizar imágenes o abrir PDFs adjuntos en las solicitudes directamente desde sus paneles.
 
 ---
 
@@ -15,37 +37,40 @@ Este proyecto es una migración dinámica del Portal Estudiante (originalmente e
 
 ### 1. Ubicación del Proyecto
 Descarga o clona este repositorio en el directorio `htdocs` de tu servidor XAMPP:
-* **Linux**: `/opt/lampp/htdocs/proyectos_php/portal estudiante`
-* **Windows**: `C:\xampp\htdocs\proyectos_php\portal estudiante`
+*   **Windows**: `C:\xampp\htdocs\portal-estudiante`
+*   **Linux**: `/opt/lampp/htdocs/portal-estudiante`
 
 ### 2. Configurar Base de Datos
-1. Inicia los servicios de Apache y MySQL en el Panel de Control de XAMPP.
-2. Abre phpMyAdmin (`http://localhost/phpmyadmin`) o tu terminal de MySQL.
-3. Importa el archivo `database.sql` incluido en la raíz de este proyecto para crear la base de datos `portal_estudiante` y las tablas necesarias.
-   ```bash
-   mysql -u root < database.sql
-   ```
-
-### 3. Permisos de Archivos (Solo Linux)
-Para permitir que Apache pueda almacenar los certificados adjuntados en las solicitudes de justificación, otorga permisos de escritura a la carpeta `uploads`:
-```bash
-chmod 777 uploads
-```
+1.  Inicia los servicios de Apache y MySQL en el Panel de Control de XAMPP.
+2.  Abre phpMyAdmin (`http://localhost/phpmyadmin`) o tu cliente MySQL.
+3.  Importa el archivo `database.sql` incluido en la raíz de este proyecto para crear la base de datos `portal_estudiante` y todas las tablas necesarias con datos de prueba:
+    ```bash
+    mysql -u root < database.sql
+    ```
 
 ---
 
-## Credenciales de Acceso
-El script de base de datos (`database.sql`) inserta automáticamente una cuenta de prueba para verificar el funcionamiento:
-* **Correo**: `estudiante@alu.uct.cl`
-* **Contraseña**: `ClavePrueba123`
+## Credenciales de Acceso para Pruebas
+
+El script de base de datos (`database.sql`) inserta automáticamente las siguientes cuentas con contraseñas encriptadas:
+
+| Rol | Correo / Usuario | Contraseña | Detalle / Ramo |
+| :--- | :--- | :--- | :--- |
+| **Estudiante** | `estudiante@alu.uct.cl` | `ClavePrueba123` | Alumno de prueba con ramos inscritos |
+| **Jefe de Carrera** | `jefe@uct.cl` | `JefeCarrera123` | Dr. Roberto Muñoz (Director de Carrera) |
+| **Profesor** | `profesor@uct.cl` | `ProfesorUct123` | Profesor asignado a *Álgebra Lineal* y *Programación* |
 
 ---
 
 ## Estructura del Código
-* `index.php`: Pantalla de inicio de sesión segura y procesamiento POST.
-* `index2.php`: Panel principal del estudiante una vez autenticado, controla las sesiones de usuario y carga dinámicamente las subsecciones.
-* `conexion.php`: Módulo central de conexión PDO a MySQL.
-* `get_justificativos.php`: Módulo que renderiza el calendario dinámico, el formulario y la lista de trámites del estudiante.
-* `guardar_justificativo.php`: Endpoint para procesar la subida del documento físico y realizar las inserciones SQL correspondientes dentro de una transacción.
-* `cambiar_contrasena.php`: Endpoint para que el estudiante pueda actualizar su clave.
-* `get_mock_section.php`: Enrutador para desplegar el resto de pestañas e interfaces estáticas del portal antiguo.
+
+*   `index.php`: Login unificado para estudiantes, con enlaces en el pie para acceder a los portales de Jefatura y Profesores.
+*   `index2.php`: Portal principal y menú del estudiante tras loguearse.
+*   `conexion.php`: Módulo central de conexión PDO a MySQL.
+*   `get_justificativos.php`: Módulo que renderiza el formulario con calendario interactivo y el historial de trámites del estudiante con la tabla detallada de reprogramaciones.
+*   `guardar_justificativo.php`: Módulo backend que procesa la subida de los certificados en la carpeta `uploads/` y realiza las inserciones SQL.
+*   `jefe_carrera.php`: Dashboard institucional del Jefe de Carrera con estadísticas, filtros y modal para resolver las solicitudes de justificativos.
+*   `update_justificativo.php`: Endpoint para procesar la resolución de aprobación o rechazo del Jefe de Carrera.
+*   `profesor.php`: Panel institucional de los profesores para seleccionar asignaturas dictadas y programar las fechas de las evaluaciones recuperativas.
+*   `update_fecha_evaluacion.php`: Endpoint para guardar el agendamiento y los comentarios dictados por el profesor para una inasistencia.
+*   `uploads/`: Carpeta donde se almacenan los archivos adjuntos subidos por los alumnos (PDFs e imágenes).
